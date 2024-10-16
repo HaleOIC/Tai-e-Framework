@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b794a006-436a-43ab-bcda-3bd929d9e46c" name="Changes" comment="" />
+    <list default="true" id="b794a006-436a-43ab-bcda-3bd929d9e46c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pascal/taie/analysis/dataflow/analysis/LiveVariableAnalysis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pascal/taie/analysis/dataflow/analysis/LiveVariableAnalysis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pascal/taie/analysis/dataflow/solver/IterativeSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pascal/taie/analysis/dataflow/solver/IterativeSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pascal/taie/analysis/dataflow/solver/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pascal/taie/analysis/dataflow/solver/Solver.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +19,31 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="tai-e" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="tai-e" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
@@ -26,27 +56,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.LiveVarTest.Array.executor": "Run",
-    "Gradle.LiveVarTest.executor": "Run",
-    "Gradle.LiveVarTest.testAssign.executor": "Run",
-    "Gradle.tai-e [:Assignment.main()].executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/hale/school/ProgramAnalysis/NJU/assignments/A1/tai-e/submission",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.LiveVarTest.Array.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LiveVarTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LiveVarTest.testAssign.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.tai-e [:Assignment.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hale/school/ProgramAnalysis/NJU/assignments/A1/tai-e/submission&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/submission" />
@@ -168,6 +198,7 @@
       <workItem from="1728598682173" duration="1628000" />
       <workItem from="1728856431208" duration="6545000" />
       <workItem from="1728934542158" duration="3565000" />
+      <workItem from="1729102880173" duration="207000" />
     </task>
     <servers />
   </component>

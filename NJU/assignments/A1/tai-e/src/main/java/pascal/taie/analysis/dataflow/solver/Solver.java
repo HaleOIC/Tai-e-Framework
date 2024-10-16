@@ -1,3 +1,4 @@
+
 /*
  * Tai-e: A Static Analysis Framework for Java
  *
@@ -81,7 +82,17 @@ public abstract class Solver<Node, Fact> {
     }
 
     protected void initializeBackward(CFG<Node> cfg, DataflowResult<Node, Fact> result) {
-        // TODO - finish me
+        // set input set of exit node of default boundary fact
+        result.setInFact(cfg.getExit(), analysis.newBoundaryFact(cfg));
+
+        // set input set of each basic block of default initial fact
+        for (Node node : cfg) {
+            if (cfg.isExit(node)) {
+                continue;
+            }
+            result.setInFact(node, analysis.newInitialFact());
+            result.setOutFact(node, analysis.newInitialFact());
+        }
     }
 
     /**

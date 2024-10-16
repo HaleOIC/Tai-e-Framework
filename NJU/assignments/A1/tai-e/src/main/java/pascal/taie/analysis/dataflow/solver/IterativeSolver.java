@@ -1,3 +1,4 @@
+
 /*
  * Tai-e: A Static Analysis Framework for Java
  *
@@ -24,6 +25,7 @@ package pascal.taie.analysis.dataflow.solver;
 
 import pascal.taie.analysis.dataflow.analysis.DataflowAnalysis;
 import pascal.taie.analysis.dataflow.fact.DataflowResult;
+import pascal.taie.analysis.dataflow.fact.SetFact;
 import pascal.taie.analysis.graph.cfg.CFG;
 
 class IterativeSolver<Node, Fact> extends Solver<Node, Fact> {
@@ -39,6 +41,22 @@ class IterativeSolver<Node, Fact> extends Solver<Node, Fact> {
 
     @Override
     protected void doSolveBackward(CFG<Node> cfg, DataflowResult<Node, Fact> result) {
-        // TODO - finish me
+        while (true) {
+            boolean changeExist = false;
+            for (Node node : cfg) {
+                if (cfg.isExit((node))) {
+                    continue;
+                }
+                // combine each successor input set as current node's output set
+                cfg.getSuccsOf(node).forEach(successor -> {
+                    analysis.meetInto(result.getInFact(successor), result.getOutFact(node));
+                });
+                // apply transfer function to current node
+                changeExist |= analysis.transferNode(node, result.getInFact(node), result.getOutFact(node));
+            }
+            if (!changeExist) {
+                break;
+            }
+        }
     }
 }
