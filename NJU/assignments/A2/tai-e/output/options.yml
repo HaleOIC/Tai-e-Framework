@@ -3,7 +3,7 @@ printHelp: false
 javaVersion: 17
 prependJVM: true
 classPath: src/test/resources/dataflow/constprop
-mainClass: Assign
+mainClass: BranchConstant
 worldBuilderClass: pascal.taie.frontend.soot.SootWorldBuilder
 preBuildIR: false
 scope: app

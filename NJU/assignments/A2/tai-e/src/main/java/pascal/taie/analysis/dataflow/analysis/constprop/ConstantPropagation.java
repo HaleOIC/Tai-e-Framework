@@ -40,6 +40,9 @@ import pascal.taie.language.type.PrimitiveType;
 import pascal.taie.language.type.Type;
 import pascal.taie.util.AnalysisException;
 
+import java.util.Map;
+import java.util.Objects;
+
 public class ConstantPropagation extends
         AbstractDataflowAnalysis<Stmt, CPFact> {
 
@@ -56,33 +59,74 @@ public class ConstantPropagation extends
 
     @Override
     public CPFact newBoundaryFact(CFG<Stmt> cfg) {
-        // TODO - finish me
-        return null;
+        // return an empty map
+        return new CPFact();
     }
 
     @Override
     public CPFact newInitialFact() {
-        // TODO - finish me
-        return null;
+        // return an empty map
+        return new CPFact();
     }
 
     @Override
     public void meetInto(CPFact fact, CPFact target) {
-        // TODO - finish me
+        fact.forEach((var, factValue) -> {
+            Value targetValue = target.get(var);
+            Value newValue = (targetValue != null) ? meetValue(factValue, targetValue) : factValue;
+            target.update(var, newValue);
+        });
     }
 
     /**
      * Meets two Values.
      */
     public Value meetValue(Value v1, Value v2) {
-        // TODO - finish me
-        return null;
+        // NAC ^ v = NAC
+        if (v1.isNAC() || v2.isNAC()) {
+            return Value.getNAC();
+        }
+        // UNDEF ^ v = v
+        if (v1.isUndef()) {
+            return Value.getUndef();
+        }
+        if (v2.isUndef()) {
+            return Value.getUndef();
+        }
+        // c ^ v = ?
+        if (v1.equals(v2)) {
+            // c ^ c = c
+            return v1;
+        } else {
+            // c1 ^ c2 = NAC
+            return Value.getNAC();
+        }
     }
 
     @Override
     public boolean transferNode(Stmt stmt, CPFact in, CPFact out) {
-        // TODO - finish me
-        return false;
+        // Original output
+        CPFact oriOut = out.copy();
+
+        // Out[B] = gen_b U (In[B] - kill_B)
+        out = (in == null) ? new CPFact() : in.copy();
+
+        // Remove left definition of statement
+        if (stmt.getDef().isEmpty()) {
+            return false;
+        }
+        Var def = (Var) stmt.getDef().get();
+        if (out.keySet().contains(def)) {
+            out.remove(def);
+        }
+
+        // Evaluate each expression under current In environment
+        for (Exp exp : stmt.getUses()) {
+            out.update(def, evaluate(exp, in));
+        }
+
+        // check whether termination
+        return oriOut.equals(out);
     }
 
     /**
@@ -111,7 +155,37 @@ public class ConstantPropagation extends
      * @return the resulting {@link Value}
      */
     public static Value evaluate(Exp exp, CPFact in) {
-        // TODO - finish me
-        return null;
+        // x = c -> CONSTANT
+        if (exp instanceof IntLiteral intLiteral) {
+            return Value.makeConstant(intLiteral.getValue());
+        }
+        // x = y -> val(y)
+        if (exp instanceof Var var) {
+            if (canHoldInt(var) && in != null && in.keySet().contains(var)) {
+                return in.get(var);
+            }
+        }
+        // x = y op z
+        if (exp instanceof BinaryExp binaryExp) {
+            // val(y) op val(z)
+            Var operand1 = binaryExp.getOperand1();
+            Var operand2 = binaryExp.getOperand2();
+            BinaryExp.Op op = binaryExp.getOperator();
+            if (canHoldInt(operand1) && canHoldInt(operand2)) {
+                return Value.makeConstant(calculateBinaryOp(op, operand1, operand2, in));
+            }
+
+            //
+
+
+        }
+        return Value.getUndef();
+    }
+
+    private static int calculateBinaryOp(BinaryExp.Op op, Var opr1, Var opr2, CPFact env) {
+
+        return 0;
     }
 }
+
+
