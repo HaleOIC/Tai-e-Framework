@@ -27,14 +27,7 @@ import pascal.taie.analysis.dataflow.analysis.AbstractDataflowAnalysis;
 import pascal.taie.analysis.graph.cfg.CFG;
 import pascal.taie.config.AnalysisConfig;
 import pascal.taie.ir.IR;
-import pascal.taie.ir.exp.ArithmeticExp;
-import pascal.taie.ir.exp.BinaryExp;
-import pascal.taie.ir.exp.BitwiseExp;
-import pascal.taie.ir.exp.ConditionExp;
-import pascal.taie.ir.exp.Exp;
-import pascal.taie.ir.exp.IntLiteral;
-import pascal.taie.ir.exp.ShiftExp;
-import pascal.taie.ir.exp.Var;
+import pascal.taie.ir.exp.*;
 import pascal.taie.ir.stmt.DefinitionStmt;
 import pascal.taie.ir.stmt.Stmt;
 import pascal.taie.language.type.PrimitiveType;
@@ -101,11 +94,9 @@ public class ConstantPropagation extends
             return v1;
         }
         // c ^ v = ?
-        if (v1.equals(v2)) {
-            // c ^ c = c
-            return v1;
+        if (v1.getConstant() == v2.getConstant()) {
+            return Value.makeConstant(v1.getConstant());
         } else {
-            // c1 ^ c2 = NAC
             return Value.getNAC();
         }
     }
@@ -113,37 +104,15 @@ public class ConstantPropagation extends
     @Override
     public boolean transferNode(Stmt stmt, CPFact in, CPFact out) {
         // no assignment statement
-        if (stmt.getDef().isEmpty()) {
-            if (!in.equals(out)) {
-                for (Var var : in.keySet()) {
-                    out.update(var, in.get(var));
-                }
-                return true;
-            }
-            return false;
-        }
-
-        // Out[B] = gen_b U (In[B] - kill_B)
         CPFact tempOut = in.copy();
-
-        // Remove left definition of statement
-        Var def = (Var) stmt.getDef().get();
-        if (out.keySet().contains(def)) {
-            tempOut.remove(def);
-        }
-
-        // Evaluate each expression under current In environment
-        for (Exp exp : stmt.getUses()) {
-            tempOut.update(def, evaluate(exp, in));
-        }
-
-        // check whether termination
-        if (!(tempOut.equals(out))) {
-            for (Var var : tempOut.keySet()) {
-                out.update(var, tempOut.get(var));
+        if (stmt instanceof DefinitionStmt<?,?> defStmt) {
+            if (stmt.getDef().isPresent() && stmt.getDef().get() instanceof Var def) {
+                if (canHoldInt(def)) {
+                    tempOut.update(def, evaluate(defStmt.getRValue(), tempOut));
+                }
             }
         }
-        return false;
+        return out.copyFrom(tempOut);
     }
 
     /**

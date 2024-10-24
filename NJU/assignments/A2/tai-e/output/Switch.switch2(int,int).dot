@@ -1,0 +1,58 @@
+digraph G {
+  node [shape=box,color=".3 .2 1.0",style=filled,];
+  "0" [label="Entry<Switch: int switch2(int,int)>",];
+  "1" [label="0: a = 0",];
+  "2" [label="1: goto 16",];
+  "3" [label="2: nop",];
+  "4" [label="3: a = a - y",];
+  "5" [label="4: goto 19",];
+  "6" [label="5: nop",];
+  "7" [label="6: a = a + y",];
+  "8" [label="7: nop",];
+  "9" [label="8: a = a * y",];
+  "10" [label="9: nop",];
+  "11" [label="10: a = a / y",];
+  "12" [label="11: goto 19",];
+  "13" [label="12: nop",];
+  "14" [label="13: %intconst0 = 1",];
+  "15" [label="14: a = a - %intconst0",];
+  "16" [label="15: goto 19",];
+  "17" [label="16: nop",];
+  "18" [label="17: nop",];
+  "19" [label="18: tableswitch (x) {1->2, 2->5, 3->7, 4->9, default->12}",];
+  "20" [label="19: nop",];
+  "21" [label="20: a = a + x",];
+  "22" [label="21: return a",];
+  "23" [label="Exit<Switch: int switch2(int,int)>",];
+  "0" -> "1" [label="ENTRY",];
+  "1" -> "2" [label="FALL_THROUGH",];
+  "2" -> "17" [label="GOTO",];
+  "3" -> "4" [label="FALL_THROUGH",];
+  "4" -> "5" [label="FALL_THROUGH",];
+  "5" -> "20" [label="GOTO",];
+  "6" -> "7" [label="FALL_THROUGH",];
+  "7" -> "8" [label="FALL_THROUGH",];
+  "8" -> "9" [label="FALL_THROUGH",];
+  "9" -> "10" [label="FALL_THROUGH",];
+  "10" -> "11" [label="FALL_THROUGH",];
+  "11" -> "12" [label="FALL_THROUGH",];
+  "12" -> "20" [label="GOTO",];
+  "13" -> "14" [label="FALL_THROUGH",];
+  "14" -> "15" [label="FALL_THROUGH",];
+  "15" -> "16" [label="FALL_THROUGH",];
+  "16" -> "20" [label="GOTO",];
+  "17" -> "18" [label="FALL_THROUGH",];
+  "18" -> "19" [label="FALL_THROUGH",];
+  "19" -> "3" [label="SWITCH_CASE
+[case 1]",];
+  "19" -> "6" [label="SWITCH_CASE
+[case 2]",];
+  "19" -> "8" [label="SWITCH_CASE
+[case 3]",];
+  "19" -> "10" [label="SWITCH_CASE
+[case 4]",];
+  "19" -> "13" [label="SWITCH_DEFAULT",];
+  "20" -> "21" [label="FALL_THROUGH",];
+  "21" -> "22" [label="FALL_THROUGH",];
+  "22" -> "23" [label="RETURN",];
+}
