@@ -39,6 +39,9 @@ class WorkListSolver<Node, Fact> extends Solver<Node, Fact> {
         // Initialize of linked list
         LinkedList<Node> workList = new LinkedList<>();
         for (Node node : cfg) {
+            if (cfg.isEntry(node)) {
+                continue;
+            }
             workList.add(node);
         }
 
