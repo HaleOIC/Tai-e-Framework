@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="pascal.taie.analysis.dataflow.analysis.DeadCodeTest" tests="5" skipped="0" failures="5" errors="0" timestamp="2024-10-24T22:48:03" hostname="Hales-MacBook-Air.local" time="6.205">
+  <properties/>
+  <testcase name="testLoops" classname="pascal.taie.analysis.dataflow.analysis.DeadCodeTest" time="1.885">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:&#10;&lt;Loops: void deadLoop()&gt; [5@L7] goto 9; should be included&#10;&lt;Loops: void deadLoop()&gt; [9@L7] nop; should be included&#10;&lt;Loops: void deadLoop()&gt; [10@L10] invokevirtual %this.&lt;Loops: void dead()&gt;(); should be included&#10;&lt;Loops: void deadLoop()&gt; [11@L10] return; should be included" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:
+&lt;Loops: void deadLoop()&gt; [5@L7] goto 9; should be included
+&lt;Loops: void deadLoop()&gt; [9@L7] nop; should be included
+&lt;Loops: void deadLoop()&gt; [10@L10] invokevirtual %this.&lt;Loops: void dead()&gt;(); should be included
+&lt;Loops: void deadLoop()&gt; [11@L10] return; should be included
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testDCD(DeadCodeTest.java:31)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testLoops(DeadCodeTest.java:59)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testDeadAssignment" classname="pascal.taie.analysis.dataflow.analysis.DeadCodeTest" time="1.288">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:&#10;&lt;DeadAssignment: void deadAssign()&gt; [2@L5] y = x + %intconst0; should be included&#10;&lt;DeadAssignment: void deadAssign()&gt; [6@L8] a = x; should be included" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:
+&lt;DeadAssignment: void deadAssign()&gt; [2@L5] y = x + %intconst0; should be included
+&lt;DeadAssignment: void deadAssign()&gt; [6@L8] a = x; should be included
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testDCD(DeadCodeTest.java:31)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testDeadAssignment(DeadCodeTest.java:54)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testControlFlowUnreachable" classname="pascal.taie.analysis.dataflow.analysis.DeadCodeTest" time="1.039">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:&#10;&lt;ControlFlowUnreachable: int foo()&gt; [2@L6] invokestatic &lt;ControlFlowUnreachable: void dead()&gt;(); should be included" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:
+&lt;ControlFlowUnreachable: int foo()&gt; [2@L6] invokestatic &lt;ControlFlowUnreachable: void dead()&gt;(); should be included
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testDCD(DeadCodeTest.java:31)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testControlFlowUnreachable(DeadCodeTest.java:39)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testUnreachableSwitchBranch" classname="pascal.taie.analysis.dataflow.analysis.DeadCodeTest" time="1.018">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [8@L9] nop; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [17@L17] %intconst4 = 666; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [4@L6] nop; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [5@L8] %intconst1 = 2; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [7@L9] goto 24; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [9@L11] %intconst2 = 4; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [10@L11] invokevirtual %this.&lt;UnreachableSwitchBranch: void use(int)&gt;(%intconst2); should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [18@L17] invokevirtual %this.&lt;UnreachableSwitchBranch: void use(int)&gt;(%intconst4); should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [11@L12] goto 24; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [6@L8] invokevirtual %this.&lt;UnreachableSwitchBranch: void use(int)&gt;(%intconst1); should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [16@L15] nop; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [19@L18] goto 24; should be included&#10;&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [20@L6] goto 24; should be included" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [8@L9] nop; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [17@L17] %intconst4 = 666; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [4@L6] nop; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [5@L8] %intconst1 = 2; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [7@L9] goto 24; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [9@L11] %intconst2 = 4; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [10@L11] invokevirtual %this.&lt;UnreachableSwitchBranch: void use(int)&gt;(%intconst2); should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [18@L17] invokevirtual %this.&lt;UnreachableSwitchBranch: void use(int)&gt;(%intconst4); should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [11@L12] goto 24; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [6@L8] invokevirtual %this.&lt;UnreachableSwitchBranch: void use(int)&gt;(%intconst1); should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [16@L15] nop; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [19@L18] goto 24; should be included
+&lt;UnreachableSwitchBranch: void lookupSwitch()&gt; [20@L6] goto 24; should be included
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testDCD(DeadCodeTest.java:31)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testUnreachableSwitchBranch(DeadCodeTest.java:49)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testUnreachableIfBranch" classname="pascal.taie.analysis.dataflow.analysis.DeadCodeTest" time="0.975">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:&#10;&lt;UnreachableIfBranch: int branch()&gt; [3@L7] goto 7; should be included&#10;&lt;UnreachableIfBranch: int branch()&gt; [7@L7] nop; should be included&#10;&lt;UnreachableIfBranch: int branch()&gt; [8@L10] z = 200; should be included" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;deadcode&quot;:
+&lt;UnreachableIfBranch: int branch()&gt; [3@L7] goto 7; should be included
+&lt;UnreachableIfBranch: int branch()&gt; [7@L7] nop; should be included
+&lt;UnreachableIfBranch: int branch()&gt; [8@L10] z = 200; should be included
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testDCD(DeadCodeTest.java:31)
+	at pascal.taie.analysis.dataflow.analysis.DeadCodeTest.testUnreachableIfBranch(DeadCodeTest.java:44)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <system-out><![CDATA[Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+Warning: main class 'Loops' does not have main(String[]) method!
+10020 classes with 98917 methods in the world
+WorldBuilder finishes, elapsed time: 1.61s
+throw starts ...
+1 classes in scope (app) of class analyses
+4 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.01s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+constprop starts ...
+constprop finishes, elapsed time: 0.00s
+livevar starts ...
+livevar finishes, elapsed time: 0.00s
+deadcode starts ...
+deadcode finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.01s
+Tai-e finishes, elapsed time: 1.74s
+Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+Warning: main class 'DeadAssignment' does not have main(String[]) method!
+10020 classes with 98916 methods in the world
+WorldBuilder finishes, elapsed time: 1.27s
+throw starts ...
+1 classes in scope (app) of class analyses
+3 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.00s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+constprop starts ...
+constprop finishes, elapsed time: 0.00s
+livevar starts ...
+livevar finishes, elapsed time: 0.00s
+deadcode starts ...
+deadcode finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.00s
+Tai-e finishes, elapsed time: 1.29s
+Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+Warning: main class 'ControlFlowUnreachable' does not have main(String[]) method!
+10020 classes with 98916 methods in the world
+WorldBuilder finishes, elapsed time: 1.02s
+throw starts ...
+1 classes in scope (app) of class analyses
+3 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.00s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+constprop starts ...
+constprop finishes, elapsed time: 0.00s
+livevar starts ...
+livevar finishes, elapsed time: 0.00s
+deadcode starts ...
+deadcode finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.00s
+Tai-e finishes, elapsed time: 1.04s
+Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+Warning: main class 'UnreachableSwitchBranch' does not have main(String[]) method!
+10020 classes with 98916 methods in the world
+WorldBuilder finishes, elapsed time: 1.00s
+throw starts ...
+1 classes in scope (app) of class analyses
+3 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.00s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+constprop starts ...
+constprop finishes, elapsed time: 0.00s
+livevar starts ...
+livevar finishes, elapsed time: 0.00s
+deadcode starts ...
+deadcode finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.00s
+Tai-e finishes, elapsed time: 1.02s
+Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+Warning: main class 'UnreachableIfBranch' does not have main(String[]) method!
+10020 classes with 98915 methods in the world
+WorldBuilder finishes, elapsed time: 0.96s
+throw starts ...
+1 classes in scope (app) of class analyses
+2 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.00s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+constprop starts ...
+constprop finishes, elapsed time: 0.00s
+livevar starts ...
+livevar finishes, elapsed time: 0.00s
+deadcode starts ...
+deadcode finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.00s
+Tai-e finishes, elapsed time: 0.97s
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,3 +1,4 @@
+
 /*
  * Tai-e: A Static Analysis Framework for Java
  *
@@ -25,6 +26,7 @@ package pascal.taie.analysis.dataflow.analysis;
 import pascal.taie.analysis.dataflow.fact.SetFact;
 import pascal.taie.analysis.graph.cfg.CFG;
 import pascal.taie.config.AnalysisConfig;
+import pascal.taie.ir.exp.RValue;
 import pascal.taie.ir.exp.Var;
 import pascal.taie.ir.stmt.Stmt;
 
@@ -47,24 +49,42 @@ public class LiveVariableAnalysis extends
 
     @Override
     public SetFact<Var> newBoundaryFact(CFG<Stmt> cfg) {
-        // TODO - finish me
-        return null;
+        return new SetFact<>();
     }
 
     @Override
     public SetFact<Var> newInitialFact() {
-        // TODO - finish me
-        return null;
+        return new SetFact<>();
     }
 
     @Override
     public void meetInto(SetFact<Var> fact, SetFact<Var> target) {
-        // TODO - finish me
+        target.union(fact);
     }
 
     @Override
     public boolean transferNode(Stmt stmt, SetFact<Var> in, SetFact<Var> out) {
-        // TODO - finish me
+        // Make a new copy of original input set
+        SetFact<Var> tempIn = new SetFact<>();
+
+        // in ^ out
+        tempIn.union(out);
+
+        // remove definition of variable from input set
+        stmt.getDef().ifPresent(definition -> {
+            if (definition instanceof Var) tempIn.remove((Var) definition);
+        });
+
+        // add new usage of variable into input set
+        stmt.getUses().stream()
+                .filter(expression -> expression instanceof Var)
+                .forEach(expression -> tempIn.add((Var) expression));
+
+        // check whether termination
+        if (!in.equals(tempIn)) {
+            in.set(tempIn);
+            return true;
+        }
         return false;
     }
 }
