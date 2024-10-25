@@ -60,82 +60,167 @@ public class DeadCodeDetection extends MethodAnalysis {
         // keep statements (dead code) sorted in the resulting set
         Set<Stmt> deadCode = new TreeSet<>(Comparator.comparing(Stmt::getIndex));
 
-        // add unreachable branch into dead code
-        deadCode.addAll(analyzeUnreachableBranch(cfg, constants));
-
-        // add control flow unreachable statements into dead code
-        analyzeControlFlowUnreachable(cfg, deadCode);
+        // add unreachable statements into dead code
+        analyzeControlFlowUnreachable(cfg, deadCode, constants);
 
         // add dead assignment into dead code
         deadCode.addAll(analyzeDeadAssign(cfg, liveVars));
+
+        deadCode.remove(cfg.getExit());
+        deadCode.remove(cfg.getEntry());
 
         // Your task is to recognize dead code in ir and add it to deadCode
         return deadCode;
     }
 
     /**
-     * @return dead cade that can not be reached in control flow
+     * Analyzes the control flow graph to identify unreachable code blocks.
+     * Uses constant propagation results to determine which branches of conditional
+     * statements
+     * are actually reachable during runtime.
+     *
+     * @param cfg       The control flow graph to analyze
+     * @param deadCode  Set to store identified dead code statements
+     * @param constants Results from constant propagation analysis
      */
-    private void analyzeControlFlowUnreachable(CFG<Stmt> cfg, Set<Stmt> deadCode) {
-        // enumerate each node, color reachable node
+    private void analyzeControlFlowUnreachable(CFG<Stmt> cfg, Set<Stmt> deadCode,
+            DataflowResult<Stmt, CPFact> constants) {
         Set<Stmt> visited = new HashSet<>();
-        ArrayList<Stmt> list = new ArrayList<>();
-        list.add(cfg.getEntry());
-        while (!list.isEmpty()) {
-            Stmt cur = list.remove(0);
-            if (visited.contains(cur) || deadCode.contains(cur)) {
+        Queue<Stmt> queue = new LinkedList<>();
+        queue.offer(cfg.getEntry());
+
+        while (!queue.isEmpty()) {
+            Stmt cur = queue.poll();
+            if (!visited.add(cur)) {
                 continue;
             }
-            visited.add(cur);
-            cfg.getOutEdgesOf(cur).forEach(edge -> list.add(edge.getTarget()));
+
+            getReachableSuccessors(cfg, cur, constants)
+                    .forEach(queue::offer);
         }
 
-        for (Stmt node : cfg.getNodes()) {
-            if (!visited.contains(node) && !cfg.isExit(node)) {
-                deadCode.add(node);
-            }
-        }
+        markUnreachableNodes(cfg, visited, deadCode);
     }
 
     /**
-     * @return dead code that can not be reached during branch
+     * Determines the reachable successor statements for a given statement.
+     * Handles different types of control flow statements (if/switch) differently
+     * based on constant propagation results.
+     *
+     * @param cfg       The control flow graph
+     * @param stmt      The current statement to analyze
+     * @param constants Results from constant propagation analysis
+     * @return Collection of reachable successor statements
      */
-    private Set<Stmt> analyzeUnreachableBranch(CFG<Stmt> cfg, DataflowResult<Stmt, CPFact> constants) {
-        Set<Stmt> deadCode = new TreeSet<>(Comparator.comparing(Stmt::getIndex));
-        for (Stmt node : cfg.getNodes()) {
-            // resolve if statement
-            if (node instanceof If ifStmt) {
-                Value condExpResult = ConstantPropagation.evaluate(ifStmt.getCondition(), constants.getInFact(ifStmt));
-                if (condExpResult.isConstant()) {
-                    Edge.Kind targetEdge = (condExpResult.getConstant() != 0) ? Edge.Kind.IF_FALSE : Edge.Kind.IF_TRUE;
-
-                    cfg.getOutEdgesOf(ifStmt).stream()
-                            .filter(edge -> edge.getKind() == targetEdge)
-                            .map(Edge::getTarget)
-                            .forEach(deadCode::add);
-                }
-            }
-            // resolve switch case statement
-            if (node instanceof SwitchStmt switchStmt) {
-                Value condExpResult = ConstantPropagation.evaluate(switchStmt.getVar(),
-                        constants.getInFact(switchStmt));
-                if (condExpResult.isConstant()) {
-                    int switchValue = condExpResult.getConstant();
-                    Set<Edge<Stmt>> outEdges = cfg.getOutEdgesOf(switchStmt);
-                    boolean hasMatchingCase = outEdges.stream()
-                            .filter(Edge::isSwitchCase)
-                            .anyMatch(edge -> switchValue == edge.getCaseValue());
-                    outEdges.stream()
-                            .filter(edge -> (edge.isSwitchCase() && switchValue != edge.getCaseValue()) ||
-                                    (hasMatchingCase && edge.getKind() == Edge.Kind.SWITCH_DEFAULT))
-                            .map(Edge::getTarget)
-                            .forEach(deadCode::add);
-                }
-            }
+    private Collection<Stmt> getReachableSuccessors(CFG<Stmt> cfg, Stmt stmt,
+            DataflowResult<Stmt, CPFact> constants) {
+        if (stmt instanceof If ifStmt) {
+            return handleIfStatement(cfg, ifStmt, constants);
         }
-        return deadCode;
+        if (stmt instanceof SwitchStmt switchStmt) {
+            return handleSwitchStatement(cfg, switchStmt, constants);
+        }
+        return getDefaultSuccessors(cfg, stmt);
     }
 
+    /**
+     * Analyzes an if statement to determine which branches are reachable.
+     * If the condition can be evaluated to a constant, only returns the relevant
+     * branch.
+     *
+     * @param cfg       The control flow graph
+     * @param ifStmt    The if statement to analyze
+     * @param constants Results from constant propagation analysis
+     * @return Collection of reachable successor statements
+     */
+    private Collection<Stmt> handleIfStatement(CFG<Stmt> cfg, If ifStmt,
+            DataflowResult<Stmt, CPFact> constants) {
+        Value condValue = ConstantPropagation.evaluate(
+                ifStmt.getCondition(),
+                constants.getResult(ifStmt));
+
+        if (!condValue.isConstant()) {
+            return getDefaultSuccessors(cfg, ifStmt);
+        }
+
+        Edge.Kind reachableKind = (condValue.getConstant() != 0) ? Edge.Kind.IF_TRUE : Edge.Kind.IF_FALSE;
+
+        return cfg.getOutEdgesOf(ifStmt).stream()
+                .filter(edge -> edge.getKind() == reachableKind)
+                .map(Edge::getTarget)
+                .toList();
+    }
+
+    /**
+     * Analyzes a switch statement to determine which cases are reachable.
+     * If the switch value is constant, returns only the matching case or default.
+     *
+     * @param cfg        The control flow graph
+     * @param switchStmt The switch statement to analyze
+     * @param constants  Results from constant propagation analysis
+     * @return Collection of reachable successor statements
+     */
+    private Collection<Stmt> handleSwitchStatement(CFG<Stmt> cfg, SwitchStmt switchStmt,
+            DataflowResult<Stmt, CPFact> constants) {
+        Value switchValue = ConstantPropagation.evaluate(
+                switchStmt.getVar(),
+                constants.getResult(switchStmt));
+
+        if (!switchValue.isConstant()) {
+            return getDefaultSuccessors(cfg, switchStmt);
+        }
+
+        int value = switchValue.getConstant();
+        var matchingCase = cfg.getOutEdgesOf(switchStmt).stream()
+                .filter(edge -> edge.isSwitchCase() && edge.getCaseValue() == value)
+                .findFirst();
+
+        return matchingCase.<Collection<Stmt>>map(stmtEdge -> List.of(stmtEdge.getTarget()))
+                .orElseGet(() -> cfg.getOutEdgesOf(switchStmt).stream()
+                        .filter(edge -> edge.getKind() == Edge.Kind.SWITCH_DEFAULT)
+                        .map(Edge::getTarget)
+                        .toList());
+
+    }
+
+    /**
+     * Returns all immediate successors for a given statement.
+     * Used for non-conditional statements or when conditional values cannot be
+     * determined.
+     *
+     * @param cfg  The control flow graph
+     * @param stmt The statement to get successors for
+     * @return Collection of all successor statements
+     */
+    private Collection<Stmt> getDefaultSuccessors(CFG<Stmt> cfg, Stmt stmt) {
+        return cfg.getOutEdgesOf(stmt).stream()
+                .map(Edge::getTarget)
+                .toList();
+    }
+
+    /**
+     * Marks all unvisited nodes in the CFG as unreachable (dead code).
+     *
+     * @param cfg      The control flow graph
+     * @param visited  Set of statements that were reached during analysis
+     * @param deadCode Set to store identified dead code statements
+     */
+    private void markUnreachableNodes(CFG<Stmt> cfg, Set<Stmt> visited, Set<Stmt> deadCode) {
+        cfg.getNodes().stream()
+                .filter(node -> !visited.contains(node))
+                .forEach(deadCode::add);
+    }
+
+    /**
+     * Analyzes the program to identify dead assignments (assignments to variables
+     * that are never used).
+     * Uses live variable analysis results to determine if assigned variables are
+     * used later.
+     *
+     * @param cfg      The control flow graph
+     * @param liveVars Results from live variable analysis
+     * @return Sorted set of statements containing dead assignments
+     */
     private Set<Stmt> analyzeDeadAssign(CFG<Stmt> cfg, DataflowResult<Stmt, SetFact<Var>> liveVars) {
         Set<Stmt> deadCode = new TreeSet<>(Comparator.comparing(Stmt::getIndex));
         for (Stmt node : cfg.getNodes()) {
