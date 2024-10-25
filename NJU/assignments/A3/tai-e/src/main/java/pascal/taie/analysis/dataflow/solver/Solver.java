@@ -93,8 +93,8 @@ public abstract class Solver<Node, Fact> {
             if (cfg.isExit(node)) {
                 continue;
             }
-            result.setOutFact(node, analysis.newInitialFact());
             result.setInFact(node, analysis.newInitialFact());
+            result.setOutFact(node, analysis.newInitialFact());
         }
     }
 

@@ -1,0 +1,48 @@
+digraph G {
+  node [shape=box,style=filled,color=".3 .2 1.0",];
+  "0" [label="Entry<UnreachableSwitchBranch: int unreachableSwitchBranch()>",];
+  "1" [label="0: x = 2",];
+  "2" [label="1: goto 13",];
+  "3" [label="2: nop",];
+  "4" [label="3: y = 100",];
+  "5" [label="4: goto 16",];
+  "6" [label="5: nop",];
+  "7" [label="6: y = 200",];
+  "8" [label="7: nop",];
+  "9" [label="8: y = 300",];
+  "10" [label="9: goto 16",];
+  "11" [label="10: nop",];
+  "12" [label="11: y = 666",];
+  "13" [label="12: goto 16",];
+  "14" [label="13: nop",];
+  "15" [label="14: nop",];
+  "16" [label="15: tableswitch (x) {1->2, 2->5, 3->7, default->10}",];
+  "17" [label="16: nop",];
+  "18" [label="17: return y",];
+  "19" [label="Exit<UnreachableSwitchBranch: int unreachableSwitchBranch()>",];
+  "0" -> "1" [label="ENTRY",];
+  "1" -> "2" [label="FALL_THROUGH",];
+  "2" -> "14" [label="GOTO",];
+  "3" -> "4" [label="FALL_THROUGH",];
+  "4" -> "5" [label="FALL_THROUGH",];
+  "5" -> "17" [label="GOTO",];
+  "6" -> "7" [label="FALL_THROUGH",];
+  "7" -> "8" [label="FALL_THROUGH",];
+  "8" -> "9" [label="FALL_THROUGH",];
+  "9" -> "10" [label="FALL_THROUGH",];
+  "10" -> "17" [label="GOTO",];
+  "11" -> "12" [label="FALL_THROUGH",];
+  "12" -> "13" [label="FALL_THROUGH",];
+  "13" -> "17" [label="GOTO",];
+  "14" -> "15" [label="FALL_THROUGH",];
+  "15" -> "16" [label="FALL_THROUGH",];
+  "16" -> "3" [label="SWITCH_CASE
+[case 1]",];
+  "16" -> "6" [label="SWITCH_CASE
+[case 2]",];
+  "16" -> "8" [label="SWITCH_CASE
+[case 3]",];
+  "16" -> "11" [label="SWITCH_DEFAULT",];
+  "17" -> "18" [label="FALL_THROUGH",];
+  "18" -> "19" [label="RETURN",];
+}

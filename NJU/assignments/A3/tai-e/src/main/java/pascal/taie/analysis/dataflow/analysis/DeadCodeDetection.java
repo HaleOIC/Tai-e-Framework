@@ -33,21 +33,13 @@ import pascal.taie.analysis.graph.cfg.CFGBuilder;
 import pascal.taie.analysis.graph.cfg.Edge;
 import pascal.taie.config.AnalysisConfig;
 import pascal.taie.ir.IR;
-import pascal.taie.ir.exp.ArithmeticExp;
-import pascal.taie.ir.exp.ArrayAccess;
-import pascal.taie.ir.exp.CastExp;
-import pascal.taie.ir.exp.FieldAccess;
-import pascal.taie.ir.exp.NewExp;
-import pascal.taie.ir.exp.RValue;
-import pascal.taie.ir.exp.Var;
+import pascal.taie.ir.exp.*;
 import pascal.taie.ir.stmt.AssignStmt;
 import pascal.taie.ir.stmt.If;
 import pascal.taie.ir.stmt.Stmt;
 import pascal.taie.ir.stmt.SwitchStmt;
 
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class DeadCodeDetection extends MethodAnalysis {
 
@@ -62,15 +54,100 @@ public class DeadCodeDetection extends MethodAnalysis {
         // obtain CFG
         CFG<Stmt> cfg = ir.getResult(CFGBuilder.ID);
         // obtain result of constant propagation
-        DataflowResult<Stmt, CPFact> constants =
-                ir.getResult(ConstantPropagation.ID);
+        DataflowResult<Stmt, CPFact> constants = ir.getResult(ConstantPropagation.ID);
         // obtain result of live variable analysis
-        DataflowResult<Stmt, SetFact<Var>> liveVars =
-                ir.getResult(LiveVariableAnalysis.ID);
+        DataflowResult<Stmt, SetFact<Var>> liveVars = ir.getResult(LiveVariableAnalysis.ID);
         // keep statements (dead code) sorted in the resulting set
         Set<Stmt> deadCode = new TreeSet<>(Comparator.comparing(Stmt::getIndex));
-        // TODO - finish me
+
+        // add unreachable branch into dead code
+        deadCode.addAll(analyzeUnreachableBranch(cfg, constants));
+
+        // add control flow unreachable statements into dead code
+        analyzeControlFlowUnreachable(cfg, deadCode);
+
+        // add dead assignment into dead code
+        deadCode.addAll(analyzeDeadAssign(cfg, liveVars));
+
         // Your task is to recognize dead code in ir and add it to deadCode
+        return deadCode;
+    }
+
+    /**
+     * @return dead cade that can not be reached in control flow
+     */
+    private void analyzeControlFlowUnreachable(CFG<Stmt> cfg, Set<Stmt> deadCode) {
+        // enumerate each node, color reachable node
+        Set<Stmt> visited = new HashSet<>();
+        ArrayList<Stmt> list = new ArrayList<>();
+        list.add(cfg.getEntry());
+        while (!list.isEmpty()) {
+            Stmt cur = list.remove(0);
+            if (visited.contains(cur) || deadCode.contains(cur)) {
+                continue;
+            }
+            visited.add(cur);
+            cfg.getOutEdgesOf(cur).forEach(edge -> list.add(edge.getTarget()));
+        }
+
+        for (Stmt node : cfg.getNodes()) {
+            if (!visited.contains(node) && !cfg.isExit(node)) {
+                deadCode.add(node);
+            }
+        }
+    }
+
+    /**
+     * @return dead code that can not be reached during branch
+     */
+    private Set<Stmt> analyzeUnreachableBranch(CFG<Stmt> cfg, DataflowResult<Stmt, CPFact> constants) {
+        Set<Stmt> deadCode = new TreeSet<>(Comparator.comparing(Stmt::getIndex));
+        for (Stmt node : cfg.getNodes()) {
+            // resolve if statement
+            if (node instanceof If ifStmt) {
+                Value condExpResult = ConstantPropagation.evaluate(ifStmt.getCondition(), constants.getInFact(ifStmt));
+                if (condExpResult.isConstant()) {
+                    Edge.Kind targetEdge = (condExpResult.getConstant() != 0) ? Edge.Kind.IF_FALSE : Edge.Kind.IF_TRUE;
+
+                    cfg.getOutEdgesOf(ifStmt).stream()
+                            .filter(edge -> edge.getKind() == targetEdge)
+                            .map(Edge::getTarget)
+                            .forEach(deadCode::add);
+                }
+            }
+            // resolve switch case statement
+            if (node instanceof SwitchStmt switchStmt) {
+                Value condExpResult = ConstantPropagation.evaluate(switchStmt.getVar(),
+                        constants.getInFact(switchStmt));
+                if (condExpResult.isConstant()) {
+                    int switchValue = condExpResult.getConstant();
+                    Set<Edge<Stmt>> outEdges = cfg.getOutEdgesOf(switchStmt);
+                    boolean hasMatchingCase = outEdges.stream()
+                            .filter(Edge::isSwitchCase)
+                            .anyMatch(edge -> switchValue == edge.getCaseValue());
+                    outEdges.stream()
+                            .filter(edge -> (edge.isSwitchCase() && switchValue != edge.getCaseValue()) ||
+                                    (hasMatchingCase && edge.getKind() == Edge.Kind.SWITCH_DEFAULT))
+                            .map(Edge::getTarget)
+                            .forEach(deadCode::add);
+                }
+            }
+        }
+        return deadCode;
+    }
+
+    private Set<Stmt> analyzeDeadAssign(CFG<Stmt> cfg, DataflowResult<Stmt, SetFact<Var>> liveVars) {
+        Set<Stmt> deadCode = new TreeSet<>(Comparator.comparing(Stmt::getIndex));
+        for (Stmt node : cfg.getNodes()) {
+            if (node instanceof AssignStmt<?, ?> assignStmt) {
+                LValue lvalue = assignStmt.getLValue();
+                if (lvalue instanceof Var var && hasNoSideEffect(assignStmt.getRValue())) {
+                    if (!liveVars.getResult(node).contains(var)) {
+                        deadCode.add(node);
+                    }
+                }
+            }
+        }
         return deadCode;
     }
 
@@ -80,7 +157,7 @@ public class DeadCodeDetection extends MethodAnalysis {
     private static boolean hasNoSideEffect(RValue rvalue) {
         // new expression modifies the heap
         if (rvalue instanceof NewExp ||
-                // cast may trigger ClassCastException
+        // cast may trigger ClassCastException
                 rvalue instanceof CastExp ||
                 // static field access may trigger class initialization
                 // instance field access may trigger NPE
