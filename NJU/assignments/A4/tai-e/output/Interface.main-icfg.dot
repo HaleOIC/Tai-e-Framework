@@ -1,0 +1,3 @@
+digraph G {
+  node [style=filled,color=".3 .2 1.0",shape=box,];
+}

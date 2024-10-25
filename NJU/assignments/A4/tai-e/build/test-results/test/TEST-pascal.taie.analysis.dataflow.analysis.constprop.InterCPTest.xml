@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest" tests="4" skipped="0" failures="4" errors="0" timestamp="2024-10-25T11:53:19" hostname="Hales-MacBook-Air.local" time="5.473">
+  <properties/>
+  <testcase name="testExample" classname="pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest" time="2.027">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;inter-constprop&quot;:&#10;&lt;Example: void main(java.lang.String[])&gt; [0@L5] a = 6; expected: {a=6}, given: null&#10;&lt;Example: void main(java.lang.String[])&gt; [1@L6] temp$1 = invokestatic &lt;Example: int addOne(int)&gt;(a); expected: {a=6}, given: null&#10;&lt;Example: void main(java.lang.String[])&gt; [2@L6] b = temp$1; expected: {a=6, b=7, temp$1=7}, given: null&#10;&lt;Example: void main(java.lang.String[])&gt; [3@L7] %intconst0 = 3; expected: {%intconst0=3, a=6, b=7, temp$1=7}, given: null&#10;&lt;Example: void main(java.lang.String[])&gt; [4@L7] c = b - %intconst0; expected: {%intconst0=3, a=6, b=7, c=4, temp$1=7}, given: null&#10;&lt;Example: void main(java.lang.String[])&gt; [5@L8] temp$3 = invokestatic &lt;Example: int ten()&gt;(); expected: {%intconst0=3, a=6, b=7, c=4, temp$1=7}, given: null&#10;&lt;Example: void main(java.lang.String[])&gt; [6@L8] b = temp$3; expected: {%intconst0=3, a=6, b=10, c=4, temp$1=7, temp$3=10}, given: null&#10;&lt;Example: void main(java.lang.String[])&gt; [7@L9] c = a * b; expected: {%intconst0=3, a=6, b=10, c=60, temp$1=7, temp$3=10}, given: null&#10;&lt;Example: void main(java.lang.String[])&gt; [8@L9] return; expected: {%intconst0=3, a=6, b=10, c=60, temp$1=7, temp$3=10}, given: null&#10;&lt;Example: int addOne(int)&gt; [0@L13] %intconst0 = 1; expected: {%intconst0=1, x=6}, given: null&#10;&lt;Example: int addOne(int)&gt; [1@L13] y = x + %intconst0; expected: {%intconst0=1, x=6, y=7}, given: null&#10;&lt;Example: int addOne(int)&gt; [2@L14] return y; expected: {%intconst0=1, x=6, y=7}, given: null&#10;&lt;Example: int ten()&gt; [0@L17] temp$0 = 10; expected: {temp$0=10}, given: null&#10;&lt;Example: int ten()&gt; [1@L18] return temp$0; expected: {temp$0=10}, given: null" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;inter-constprop&quot;:
+&lt;Example: void main(java.lang.String[])&gt; [0@L5] a = 6; expected: {a=6}, given: null
+&lt;Example: void main(java.lang.String[])&gt; [1@L6] temp$1 = invokestatic &lt;Example: int addOne(int)&gt;(a); expected: {a=6}, given: null
+&lt;Example: void main(java.lang.String[])&gt; [2@L6] b = temp$1; expected: {a=6, b=7, temp$1=7}, given: null
+&lt;Example: void main(java.lang.String[])&gt; [3@L7] %intconst0 = 3; expected: {%intconst0=3, a=6, b=7, temp$1=7}, given: null
+&lt;Example: void main(java.lang.String[])&gt; [4@L7] c = b - %intconst0; expected: {%intconst0=3, a=6, b=7, c=4, temp$1=7}, given: null
+&lt;Example: void main(java.lang.String[])&gt; [5@L8] temp$3 = invokestatic &lt;Example: int ten()&gt;(); expected: {%intconst0=3, a=6, b=7, c=4, temp$1=7}, given: null
+&lt;Example: void main(java.lang.String[])&gt; [6@L8] b = temp$3; expected: {%intconst0=3, a=6, b=10, c=4, temp$1=7, temp$3=10}, given: null
+&lt;Example: void main(java.lang.String[])&gt; [7@L9] c = a * b; expected: {%intconst0=3, a=6, b=10, c=60, temp$1=7, temp$3=10}, given: null
+&lt;Example: void main(java.lang.String[])&gt; [8@L9] return; expected: {%intconst0=3, a=6, b=10, c=60, temp$1=7, temp$3=10}, given: null
+&lt;Example: int addOne(int)&gt; [0@L13] %intconst0 = 1; expected: {%intconst0=1, x=6}, given: null
+&lt;Example: int addOne(int)&gt; [1@L13] y = x + %intconst0; expected: {%intconst0=1, x=6, y=7}, given: null
+&lt;Example: int addOne(int)&gt; [2@L14] return y; expected: {%intconst0=1, x=6, y=7}, given: null
+&lt;Example: int ten()&gt; [0@L17] temp$0 = 10; expected: {temp$0=10}, given: null
+&lt;Example: int ten()&gt; [1@L18] return temp$0; expected: {temp$0=10}, given: null
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest.test(InterCPTest.java:34)
+	at pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest.testExample(InterCPTest.java:43)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testFibonacci" classname="pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest" time="1.402">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;inter-constprop&quot;:&#10;&lt;Fibonacci: void main(java.lang.String[])&gt; [0@L3] n = 5; expected: {n=5}, given: null&#10;&lt;Fibonacci: void main(java.lang.String[])&gt; [1@L4] z = 0; expected: {n=5, z=0}, given: null&#10;&lt;Fibonacci: void main(java.lang.String[])&gt; [2@L5] temp$0 = invokestatic &lt;Fibonacci: int getFibonacci(int)&gt;(n); expected: {n=5, z=0}, given: null&#10;&lt;Fibonacci: void main(java.lang.String[])&gt; [3@L5] z = temp$0; expected: {n=5, temp$0=NAC, z=NAC}, given: null&#10;&lt;Fibonacci: void main(java.lang.String[])&gt; [4@L5] return; expected: {n=5, temp$0=NAC, z=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [0@L9] %intconst0 = 0; expected: {%intconst0=0, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [1@L9] if (n == %intconst0) goto 8; expected: {%intconst0=0, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [2@L9] goto 3; expected: {%intconst0=0, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [3@L9] nop; expected: {%intconst0=0, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [4@L9] %intconst1 = 1; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [5@L9] if (n == %intconst1) goto 8; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [6@L9] goto 10; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [7@L9] goto 10; expected: {}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [8@L9] nop; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [9@L10] return n; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [10@L10] nop; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [11@L10] temp$0 = n - %intconst1; expected: {%intconst0=0, %intconst1=1, n=NAC, temp$0=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [12@L10] temp$1 = invokestatic &lt;Fibonacci: int getFibonacci(int)&gt;(temp$0); expected: {%intconst0=0, %intconst1=1, n=NAC, temp$0=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [13@L10] %intconst2 = 2; expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [14@L10] temp$3 = n - %intconst2; expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC, temp$3=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [15@L10] temp$4 = invokestatic &lt;Fibonacci: int getFibonacci(int)&gt;(temp$3); expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC, temp$3=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [16@L10] temp$5 = temp$1 + temp$4; expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC, temp$3=NAC, temp$4=NAC, temp$5=NAC}, given: null&#10;&lt;Fibonacci: int getFibonacci(int)&gt; [17@L12] return temp$5; expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC, temp$3=NAC, temp$4=NAC, temp$5=NAC}, given: null" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;inter-constprop&quot;:
+&lt;Fibonacci: void main(java.lang.String[])&gt; [0@L3] n = 5; expected: {n=5}, given: null
+&lt;Fibonacci: void main(java.lang.String[])&gt; [1@L4] z = 0; expected: {n=5, z=0}, given: null
+&lt;Fibonacci: void main(java.lang.String[])&gt; [2@L5] temp$0 = invokestatic &lt;Fibonacci: int getFibonacci(int)&gt;(n); expected: {n=5, z=0}, given: null
+&lt;Fibonacci: void main(java.lang.String[])&gt; [3@L5] z = temp$0; expected: {n=5, temp$0=NAC, z=NAC}, given: null
+&lt;Fibonacci: void main(java.lang.String[])&gt; [4@L5] return; expected: {n=5, temp$0=NAC, z=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [0@L9] %intconst0 = 0; expected: {%intconst0=0, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [1@L9] if (n == %intconst0) goto 8; expected: {%intconst0=0, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [2@L9] goto 3; expected: {%intconst0=0, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [3@L9] nop; expected: {%intconst0=0, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [4@L9] %intconst1 = 1; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [5@L9] if (n == %intconst1) goto 8; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [6@L9] goto 10; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [7@L9] goto 10; expected: {}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [8@L9] nop; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [9@L10] return n; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [10@L10] nop; expected: {%intconst0=0, %intconst1=1, n=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [11@L10] temp$0 = n - %intconst1; expected: {%intconst0=0, %intconst1=1, n=NAC, temp$0=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [12@L10] temp$1 = invokestatic &lt;Fibonacci: int getFibonacci(int)&gt;(temp$0); expected: {%intconst0=0, %intconst1=1, n=NAC, temp$0=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [13@L10] %intconst2 = 2; expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [14@L10] temp$3 = n - %intconst2; expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC, temp$3=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [15@L10] temp$4 = invokestatic &lt;Fibonacci: int getFibonacci(int)&gt;(temp$3); expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC, temp$3=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [16@L10] temp$5 = temp$1 + temp$4; expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC, temp$3=NAC, temp$4=NAC, temp$5=NAC}, given: null
+&lt;Fibonacci: int getFibonacci(int)&gt; [17@L12] return temp$5; expected: {%intconst0=0, %intconst1=1, %intconst2=2, n=NAC, temp$0=NAC, temp$1=NAC, temp$3=NAC, temp$4=NAC, temp$5=NAC}, given: null
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest.test(InterCPTest.java:34)
+	at pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest.testFibonacci(InterCPTest.java:53)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testReference" classname="pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest" time="1.086">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;inter-constprop&quot;:&#10;&lt;Point: void &lt;init&gt;()&gt; [0@L18] invokespecial %this.&lt;java.lang.Object: void &lt;init&gt;()&gt;(); expected: {}, given: null&#10;&lt;Point: void &lt;init&gt;()&gt; [1@L18] return; expected: {}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [0@L3] temp$0 = new Point; expected: {}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [1@L3] invokespecial temp$0.&lt;Point: void &lt;init&gt;()&gt;(); expected: {}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [2@L3] p = temp$0; expected: {}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [3@L4] temp$1 = 2; expected: {temp$1=2}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [4@L4] p.&lt;Point: int x&gt; = temp$1; expected: {temp$1=2}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [5@L5] temp$2 = 3; expected: {temp$1=2, temp$2=3}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [6@L5] p.&lt;Point: int y&gt; = temp$2; expected: {temp$1=2, temp$2=3}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [7@L6] offset = 1; expected: {offset=1, temp$1=2, temp$2=3}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [8@L7] temp$3 = invokestatic &lt;Reference: Point adjustPoint(Point,int)&gt;(p, offset); expected: {offset=1, temp$1=2, temp$2=3}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [9@L7] p2 = temp$3; expected: {offset=1, temp$1=2, temp$2=3}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [10@L8] temp$4 = p2.&lt;Point: int x&gt;; expected: {offset=1, temp$1=2, temp$2=3, temp$4=NAC}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [11@L8] temp$5 = p2.&lt;Point: int y&gt;; expected: {offset=1, temp$1=2, temp$2=3, temp$4=NAC, temp$5=NAC}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [12@L8] z = temp$4 + temp$5; expected: {offset=1, temp$1=2, temp$2=3, temp$4=NAC, temp$5=NAC, z=NAC}, given: null&#10;&lt;Reference: void main(java.lang.String[])&gt; [13@L8] return; expected: {offset=1, temp$1=2, temp$2=3, temp$4=NAC, temp$5=NAC, z=NAC}, given: null&#10;&lt;Reference: Point adjustPoint(Point,int)&gt; [0@L12] temp$0 = p.&lt;Point: int x&gt;; expected: {offset=1, temp$0=NAC}, given: null&#10;&lt;Reference: Point adjustPoint(Point,int)&gt; [1@L12] temp$1 = temp$0 + offset; expected: {offset=1, temp$0=NAC, temp$1=NAC}, given: null&#10;&lt;Reference: Point adjustPoint(Point,int)&gt; [2@L12] p.&lt;Point: int x&gt; = temp$1; expected: {offset=1, temp$0=NAC, temp$1=NAC}, given: null&#10;&lt;Reference: Point adjustPoint(Point,int)&gt; [3@L13] temp$2 = p.&lt;Point: int y&gt;; expected: {offset=1, temp$0=NAC, temp$1=NAC, temp$2=NAC}, given: null&#10;&lt;Reference: Point adjustPoint(Point,int)&gt; [4@L13] temp$3 = temp$2 + offset; expected: {offset=1, temp$0=NAC, temp$1=NAC, temp$2=NAC, temp$3=NAC}, given: null&#10;&lt;Reference: Point adjustPoint(Point,int)&gt; [5@L13] p.&lt;Point: int y&gt; = temp$3; expected: {offset=1, temp$0=NAC, temp$1=NAC, temp$2=NAC, temp$3=NAC}, given: null&#10;&lt;Reference: Point adjustPoint(Point,int)&gt; [6@L14] return p; expected: {offset=1, temp$0=NAC, temp$1=NAC, temp$2=NAC, temp$3=NAC}, given: null" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;inter-constprop&quot;:
+&lt;Point: void &lt;init&gt;()&gt; [0@L18] invokespecial %this.&lt;java.lang.Object: void &lt;init&gt;()&gt;(); expected: {}, given: null
+&lt;Point: void &lt;init&gt;()&gt; [1@L18] return; expected: {}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [0@L3] temp$0 = new Point; expected: {}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [1@L3] invokespecial temp$0.&lt;Point: void &lt;init&gt;()&gt;(); expected: {}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [2@L3] p = temp$0; expected: {}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [3@L4] temp$1 = 2; expected: {temp$1=2}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [4@L4] p.&lt;Point: int x&gt; = temp$1; expected: {temp$1=2}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [5@L5] temp$2 = 3; expected: {temp$1=2, temp$2=3}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [6@L5] p.&lt;Point: int y&gt; = temp$2; expected: {temp$1=2, temp$2=3}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [7@L6] offset = 1; expected: {offset=1, temp$1=2, temp$2=3}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [8@L7] temp$3 = invokestatic &lt;Reference: Point adjustPoint(Point,int)&gt;(p, offset); expected: {offset=1, temp$1=2, temp$2=3}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [9@L7] p2 = temp$3; expected: {offset=1, temp$1=2, temp$2=3}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [10@L8] temp$4 = p2.&lt;Point: int x&gt;; expected: {offset=1, temp$1=2, temp$2=3, temp$4=NAC}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [11@L8] temp$5 = p2.&lt;Point: int y&gt;; expected: {offset=1, temp$1=2, temp$2=3, temp$4=NAC, temp$5=NAC}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [12@L8] z = temp$4 + temp$5; expected: {offset=1, temp$1=2, temp$2=3, temp$4=NAC, temp$5=NAC, z=NAC}, given: null
+&lt;Reference: void main(java.lang.String[])&gt; [13@L8] return; expected: {offset=1, temp$1=2, temp$2=3, temp$4=NAC, temp$5=NAC, z=NAC}, given: null
+&lt;Reference: Point adjustPoint(Point,int)&gt; [0@L12] temp$0 = p.&lt;Point: int x&gt;; expected: {offset=1, temp$0=NAC}, given: null
+&lt;Reference: Point adjustPoint(Point,int)&gt; [1@L12] temp$1 = temp$0 + offset; expected: {offset=1, temp$0=NAC, temp$1=NAC}, given: null
+&lt;Reference: Point adjustPoint(Point,int)&gt; [2@L12] p.&lt;Point: int x&gt; = temp$1; expected: {offset=1, temp$0=NAC, temp$1=NAC}, given: null
+&lt;Reference: Point adjustPoint(Point,int)&gt; [3@L13] temp$2 = p.&lt;Point: int y&gt;; expected: {offset=1, temp$0=NAC, temp$1=NAC, temp$2=NAC}, given: null
+&lt;Reference: Point adjustPoint(Point,int)&gt; [4@L13] temp$3 = temp$2 + offset; expected: {offset=1, temp$0=NAC, temp$1=NAC, temp$2=NAC, temp$3=NAC}, given: null
+&lt;Reference: Point adjustPoint(Point,int)&gt; [5@L13] p.&lt;Point: int y&gt; = temp$3; expected: {offset=1, temp$0=NAC, temp$1=NAC, temp$2=NAC, temp$3=NAC}, given: null
+&lt;Reference: Point adjustPoint(Point,int)&gt; [6@L14] return p; expected: {offset=1, temp$0=NAC, temp$1=NAC, temp$2=NAC, temp$3=NAC}, given: null
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest.test(InterCPTest.java:34)
+	at pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest.testReference(InterCPTest.java:48)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testMultiIntArgs" classname="pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest" time="0.958">
+    <failure message="java.lang.AssertionError: Mismatches of analysis &quot;inter-constprop&quot;:&#10;&lt;MultiIntArgs: int goo(int,int)&gt; [0@L3] temp$1 = x + y; expected: {temp$1=5, x=2, y=3}, given: null&#10;&lt;MultiIntArgs: int goo(int,int)&gt; [1@L4] return temp$1; expected: {temp$1=5, x=2, y=3}, given: null&#10;&lt;MultiIntArgs: int foo(int,int)&gt; [0@L7] temp$0 = x * y; expected: {temp$0=NAC, x=NAC, y=NAC}, given: null&#10;&lt;MultiIntArgs: int foo(int,int)&gt; [1@L8] return temp$0; expected: {temp$0=NAC, x=NAC, y=NAC}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [0@L13] a = 2; expected: {a=2}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [1@L14] b = 3; expected: {a=2, b=3}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [2@L15] temp$0 = invokestatic &lt;MultiIntArgs: int goo(int,int)&gt;(a, b); expected: {a=2, b=3}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [3@L15] c = temp$0; expected: {a=2, b=3, c=5, temp$0=5}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [4@L18] x = 2; expected: {a=2, b=3, c=5, temp$0=5, x=2}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [5@L19] y = 3; expected: {a=2, b=3, c=5, temp$0=5, x=2, y=3}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [6@L20] temp$1 = invokestatic &lt;MultiIntArgs: int foo(int,int)&gt;(x, y); expected: {a=2, b=3, c=5, temp$0=5, x=2, y=3}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [7@L20] z = temp$1; expected: {a=2, b=3, c=5, temp$0=5, temp$1=NAC, x=2, y=3, z=NAC}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [8@L22] r = 4; expected: {a=2, b=3, c=5, r=4, temp$0=5, temp$1=NAC, x=2, y=3, z=NAC}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [9@L23] s = 5; expected: {a=2, b=3, c=5, r=4, s=5, temp$0=5, temp$1=NAC, x=2, y=3, z=NAC}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [10@L24] temp$2 = invokestatic &lt;MultiIntArgs: int foo(int,int)&gt;(r, s); expected: {a=2, b=3, c=5, r=4, s=5, temp$0=5, temp$1=NAC, x=2, y=3, z=NAC}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [11@L24] t = temp$2; expected: {a=2, b=3, c=5, r=4, s=5, t=NAC, temp$0=5, temp$1=NAC, temp$2=NAC, x=2, y=3, z=NAC}, given: null&#10;&lt;MultiIntArgs: void main(java.lang.String[])&gt; [12@L24] return; expected: {a=2, b=3, c=5, r=4, s=5, t=NAC, temp$0=5, temp$1=NAC, temp$2=NAC, x=2, y=3, z=NAC}, given: null" type="java.lang.AssertionError">java.lang.AssertionError: Mismatches of analysis &quot;inter-constprop&quot;:
+&lt;MultiIntArgs: int goo(int,int)&gt; [0@L3] temp$1 = x + y; expected: {temp$1=5, x=2, y=3}, given: null
+&lt;MultiIntArgs: int goo(int,int)&gt; [1@L4] return temp$1; expected: {temp$1=5, x=2, y=3}, given: null
+&lt;MultiIntArgs: int foo(int,int)&gt; [0@L7] temp$0 = x * y; expected: {temp$0=NAC, x=NAC, y=NAC}, given: null
+&lt;MultiIntArgs: int foo(int,int)&gt; [1@L8] return temp$0; expected: {temp$0=NAC, x=NAC, y=NAC}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [0@L13] a = 2; expected: {a=2}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [1@L14] b = 3; expected: {a=2, b=3}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [2@L15] temp$0 = invokestatic &lt;MultiIntArgs: int goo(int,int)&gt;(a, b); expected: {a=2, b=3}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [3@L15] c = temp$0; expected: {a=2, b=3, c=5, temp$0=5}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [4@L18] x = 2; expected: {a=2, b=3, c=5, temp$0=5, x=2}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [5@L19] y = 3; expected: {a=2, b=3, c=5, temp$0=5, x=2, y=3}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [6@L20] temp$1 = invokestatic &lt;MultiIntArgs: int foo(int,int)&gt;(x, y); expected: {a=2, b=3, c=5, temp$0=5, x=2, y=3}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [7@L20] z = temp$1; expected: {a=2, b=3, c=5, temp$0=5, temp$1=NAC, x=2, y=3, z=NAC}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [8@L22] r = 4; expected: {a=2, b=3, c=5, r=4, temp$0=5, temp$1=NAC, x=2, y=3, z=NAC}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [9@L23] s = 5; expected: {a=2, b=3, c=5, r=4, s=5, temp$0=5, temp$1=NAC, x=2, y=3, z=NAC}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [10@L24] temp$2 = invokestatic &lt;MultiIntArgs: int foo(int,int)&gt;(r, s); expected: {a=2, b=3, c=5, r=4, s=5, temp$0=5, temp$1=NAC, x=2, y=3, z=NAC}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [11@L24] t = temp$2; expected: {a=2, b=3, c=5, r=4, s=5, t=NAC, temp$0=5, temp$1=NAC, temp$2=NAC, x=2, y=3, z=NAC}, given: null
+&lt;MultiIntArgs: void main(java.lang.String[])&gt; [12@L24] return; expected: {a=2, b=3, c=5, r=4, s=5, t=NAC, temp$0=5, temp$1=NAC, temp$2=NAC, x=2, y=3, z=NAC}, given: null
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at pascal.taie.analysis.Tests.test(Tests.java:92)
+	at pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest.test(InterCPTest.java:34)
+	at pascal.taie.analysis.dataflow.analysis.constprop.InterCPTest.testMultiIntArgs(InterCPTest.java:58)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <system-out><![CDATA[Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+10020 classes with 98917 methods in the world
+WorldBuilder finishes, elapsed time: 1.79s
+throw starts ...
+1 classes in scope (app) of class analyses
+4 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.01s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+cg starts ...
+cg finishes, elapsed time: 0.00s
+icfg starts ...
+icfg finishes, elapsed time: 0.00s
+inter-constprop starts ...
+inter-constprop finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.01s
+Tai-e finishes, elapsed time: 1.88s
+Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+10020 classes with 98916 methods in the world
+WorldBuilder finishes, elapsed time: 1.39s
+throw starts ...
+1 classes in scope (app) of class analyses
+3 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.00s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+cg starts ...
+cg finishes, elapsed time: 0.00s
+icfg starts ...
+icfg finishes, elapsed time: 0.00s
+inter-constprop starts ...
+inter-constprop finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.00s
+Tai-e finishes, elapsed time: 1.40s
+Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+10021 classes with 98917 methods in the world
+WorldBuilder finishes, elapsed time: 1.07s
+throw starts ...
+2 classes in scope (app) of class analyses
+4 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.00s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+cg starts ...
+cg finishes, elapsed time: 0.00s
+icfg starts ...
+icfg finishes, elapsed time: 0.00s
+inter-constprop starts ...
+inter-constprop finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.00s
+Tai-e finishes, elapsed time: 1.09s
+Tai-e starts ...
+Writing options to output/options.yml
+Writing analysis plan to output/tai-e-plan.yml
+WorldBuilder starts ...
+10020 classes with 98917 methods in the world
+WorldBuilder finishes, elapsed time: 0.95s
+throw starts ...
+1 classes in scope (app) of class analyses
+4 methods in scope (app) of method analyses
+throw finishes, elapsed time: 0.00s
+cfg starts ...
+cfg finishes, elapsed time: 0.00s
+cg starts ...
+cg finishes, elapsed time: 0.00s
+icfg starts ...
+icfg finishes, elapsed time: 0.00s
+inter-constprop starts ...
+inter-constprop finishes, elapsed time: 0.00s
+process-result starts ...
+process-result finishes, elapsed time: 0.00s
+Tai-e finishes, elapsed time: 0.96s
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
