@@ -53,7 +53,7 @@ IR(Intermediate Representation)
 some common 3AC forms
 
 - `x = y bop z` (bop -> binary operation)
-- `x = uop y` (uop -> unary operation)
+- `x = up y` (up -> unary operation)
 - `x = y`
 - `goto L`
 - `if x goto L`
@@ -63,7 +63,7 @@ Control Flow Analysis
 
 - Usually refer to building Control Flow Graph (CFG)
 - CFG serves as the basic structure for static analysis
-- The node in CFG can be an individual 3-address instruction, or (usually) a Basic Block (BB)
+- The node in CFG can be an individual 3-address instruction or (usually) a Basic Block (BB)
 
 Basic blocks (BB) are maximal sequences of consecutive
 three-address instructions with the properties that
@@ -84,7 +84,7 @@ Input and Output States
 - Each execution of an IR statement transforms an input state to a new output state
 - The input (output) state is associated with the program point before (after) the statement
 
-Data-flow analysis is to find a solution to a set of safe-approximation directed constraints on the IN[s]’s and OUT[s]’s, for all statements s.
+Data-flow analysis is to find a solution to a set of safe-approximation directed constraints on the IN[s]’s and OUT[s]’s for all statements s.
 
 - constraints based on semantics of statements (transfer functions)
 - constraints based on the flows of control
@@ -219,6 +219,89 @@ entry node of callee (along call edges),  it pass argument values
 - Return edge transfer: transfer data flow from exit node of
 the callee to the return site (along return edges), it pass return values
 - Node transfer: same as intraprocedural constant propagation, except that: **For call nodes, the transfer function is identity function**
-- Call to Return Edge allows the analysis to propagate local data-flow(`a=6` in this case) on ICFG. 
+- Call to Return Edge allows the analysis to propagate local data-flow(`a=6` in this case) on ICFG.
   - Without such edges, we have to propagate local data-flow across other methods, which is very inefficient.
   - kill the value of the LHS variable of the call site. Its value will flow to return site along the return edges.Otherwise, it may cause imprecision.
+
+## Lecture 8 Pointer Analysis
+
+Two closely related but different concepts
+
+- Pointer analysis: which objects a pointer can point to?
+- Alias analysis: can two pointers point to the same object?
+
+Key Factors in Pointer Analysis:
+
+- Pointer analysis is a complex system
+- Multiple factors affect the precision and efficiency of the system
+
+![key factors in Pointer analysis](./imgs/factorInPA.png)
+
+### Heap Abstraction
+
+we choose the most-common used heap abstraction, Allocation Site Abstraction
+
+- Model concrete objects by their allocation sites
+- One abstract object per allocation site to represent all its allocated concrete objects
+- The number of allocation sites in a program is bounded,
+thus the abstract objects must be finite.
+
+### Context Sentivity
+
+Context-sensitive:
+
+1. Distinguish different calling contexts of a method
+2. Analyze each method multiple times, once for each context
+
+Context-insensitive
+
+1. Mergeall calling contexts of a method
+2. Analyze each method once
+
+### Flow Sensitivity
+
+Flow-sensitive
+
+- Respect the execution order of the statements
+- Maintain a map of points-to relations at each program location
+
+Flow-insensitive
+
+- Ignore the control-flow order, treat the program as a set of unordered statements
+- Maintain one map of points-to relations for the whole program
+
+### Analysis Scope
+
+Whole-program
+
+- Compute points-to information for all pointersin the program
+- Provide information for all possible clients
+
+Demand-driven
+
+- Only compute points-to information for the pointers that may affect specific sites of interest (on demand)
+- Provide information for specific clients
+
+## Lecture 9-10 Pointer Analysis Foundation
+
+Pointer Flow Rules:
+
+![Pointer Flow rules](./imgs/pointerFlowRules.png)
+
+With PFG, pointer analysis can be solved by computing transitive closureof the PFG
+
+![Pointer Analysis](./imgs/pointerAnalysis1.png)
+
+WorkList:
+
+- Worklist contains the points-to information to be processed
+- Each worklist entry 𝑛,𝑝 is a pair of pointer n and points-to set pts, which means that pts should be propagated to pt(n)
+
+Differential Propagation
+
+- Differential propagation is employed to avoid propagation and processing of redundant points-to information
+- Insight: existing points-to information in `p(n)` have already been propagated to `n`’s successors, and no needto be propagated again
+
+![Call Rule](./imgs/callRule.png)
+
+![Pointer Analysis](./imgs/pointerAnalysis2.png)
