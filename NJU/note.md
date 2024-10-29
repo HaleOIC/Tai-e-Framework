@@ -134,7 +134,12 @@ detecting global common subexpressions.
 
 ![may-must-analysis](./imgs/may-must-analysis.png)
 
-## Lecture 7
+## Lecture 7 Interprocedural Analysis
+
+Call Graph
+
+- A representation of calling relationships in the program
+- Essentially, a call graph is a set of call edges from call-sites to their target methods (callees)
 
 |                | Static call                      | Special call                      | Virtual call                     |
 |----------------|----------------------------------|-----------------------------------|----------------------------------|
@@ -149,3 +154,71 @@ detecting global common subexpressions.
   - Descriptor = return type + parameters types
 
 ![dispatch](./imgs/dispatch.png)
+
+### Class Hierarchy Analysis (CHA)
+
+- Require the class hierarchy information (inheritance structure) of the whole program
+- Resolve a virtual call based on the declared type of receiver variable of the call site
+
+  ```java
+  A a = ...
+  a.foo();
+  ```
+
+- Assume the receiver variable amay point to objects of class Aor all subclasses of A
+  - Resolve target methods by looking up the class hierarchyof class A
+
+![CHA](./imgs/CHA.png)
+
+Features of CHA
+Advantage: fast
+
+- Only consider the declared type of receiver variable at the call-site, and its inheritance hierarchy
+- Ignore data-and control-flow information
+
+Disadvantage: imprecise
+
+- Easily introduce spurious target methods
+- Addressed in next lectures
+
+Call Graph Construction
+Build call graph for whole program via CHA
+
+- Start from entry methods (focus on main method)
+- For each reachable method `m`, resolve target methods for each call site `cs` in `m` via CHA (`Resolve(cs)`)
+- Repeat until no new method is discovered
+
+![Call Graph Construction](./imgs/CallGraphConstruction.png)
+
+### Interprocedural Control-Flow Graph
+
+- CFG represents structure of an individual method
+- ICFG represents structure of the whole program
+  - With ICFG, we can perform interproceduralanalysis
+- An ICFG of a program consists of CFGs of the methods in the program, plus two kinds of additional edges:
+  - Call edges: from call sites to the entry nodes of their callees
+  - Return edges: from exit nodes of the callees to the statementsfollowing their call sites (i.e., return sites)
+  
+  The information for connecting these two kinds of edges comes from call graph.
+
+$$ICFG = CFGs + call \, \& \, return \, edges$$
+
+> Edges from call sites to return site are call-to-return edges
+
+### Interprocedural Analysis
+
+|                         | **Intraprocedural**                          | **Interprocedural**                                       |
+|-------------------------|----------------------------------------------|-----------------------------------------------------------|
+| **Program representation** | CFG                                          | ICFG = CFGs + call & return edges                          |
+| **Transfer functions**     | Node transfer                                | Node transfer + edge transfer                              |
+
+Edge transfer
+
+- Call edge transfer: transfer data flow from call site to the
+entry node of callee (along call edges),  it pass argument values
+- Return edge transfer: transfer data flow from exit node of
+the callee to the return site (along return edges), it pass return values
+- Node transfer: same as intraprocedural constant propagation, except that: **For call nodes, the transfer function is identity function**
+- Call to Return Edge allows the analysis to propagate local data-flow(`a=6` in this case) on ICFG. 
+  - Without such edges, we have to propagate local data-flow across other methods, which is very inefficient.
+  - kill the value of the LHS variable of the call site. Its value will flow to return site along the return edges.Otherwise, it may cause imprecision.
