@@ -1,0 +1,8 @@
+digraph G {
+  node [shape=box,style=filled,color=".3 .2 1.0",];
+  "0" [label="<Example: int ten()>",];
+  "1" [label="<Example: void main(java.lang.String[])>",];
+  "2" [label="<Example: int addOne(int)>",];
+  "1" -> "0" [label="[5@L8] temp$3 = invokestatic <Example: int ten()>();",];
+  "1" -> "2" [label="[1@L6] temp$1 = invokestatic <Example: int addOne(int)>(a);",];
+}

@@ -1,0 +1,13 @@
+digraph G {
+  node [style=filled,shape=box,color=".3 .2 1.0",];
+  "0" [label="<StaticCall: void main(java.lang.String[])>",];
+  "1" [label="<A: void baz()>",];
+  "2" [label="<StaticCall: void bar()>",];
+  "3" [label="<StaticCall: void foo()>",];
+  "4" [label="<B: void qux()>",];
+  "0" -> "1" [label="[1@L5] invokestatic <A: void baz()>();",];
+  "0" -> "3" [label="[0@L4] invokestatic <StaticCall: void foo()>();",];
+  "1" -> "4" [label="[0@L18] invokestatic <B: void qux()>();",];
+  "3" -> "2" [label="[0@L9] invokestatic <StaticCall: void bar()>();",];
+  "4" -> "1" [label="[0@L24] invokestatic <A: void baz()>();",];
+}

@@ -1,0 +1,16 @@
+digraph G {
+  node [shape=box,color=".3 .2 1.0",style=filled,];
+  "0" [label="<java.lang.Object: void <init>()>",];
+  "1" [label="<B: void <init>()>",];
+  "2" [label="<C: void foo()>",];
+  "3" [label="<VirtualCall: void main(java.lang.String[])>",];
+  "4" [label="<D: void foo()>",];
+  "5" [label="<A: void <init>()>",];
+  "6" [label="<A: void foo()>",];
+  "1" -> "5" [label="[0@L14] invokespecial %this.<A: void <init>()>();",];
+  "3" -> "2" [label="[3@L5] invokevirtual b.<B: void foo()>();",];
+  "3" -> "4" [label="[3@L5] invokevirtual b.<B: void foo()>();",];
+  "3" -> "1" [label="[1@L4] invokespecial temp$0.<B: void <init>()>();",];
+  "3" -> "6" [label="[3@L5] invokevirtual b.<B: void foo()>();",];
+  "5" -> "0" [label="[0@L9] invokespecial %this.<java.lang.Object: void <init>()>();",];
+}
