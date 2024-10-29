@@ -118,15 +118,15 @@ public class InterConstantPropagation extends
     protected CPFact transferCallEdge(CallEdge<Stmt> edge, CPFact callSiteOut) {
         // only pass arguments values
         CPFact arguments = new CPFact();
-        IR functionIR = edge.getCallee().getIR();
-        List<RValue> callerParams = edge.getSource().getUses();
-
-        IntStream.range(0, functionIR.getParams().size())
-                .forEach(i -> {
-                    if (callerParams.get(i) instanceof Var callParam) {
-                        arguments.update(functionIR.getVar(i), callSiteOut.get(callParam));
-                    }
-                });
+        List<Var> params  = edge.getCallee().getIR().getParams();
+        for (RValue callerParam : edge.getSource().getUses()) {
+            if (callerParam instanceof InvokeExp invokeExp) {
+                List<Var> args = invokeExp.getArgs();
+                for (int i = 0; i < params.size(); i++) {
+                    arguments.update(params.get(i), callSiteOut.get(args.get(i)));
+                }
+            }
+        }
 
         return arguments;
     }
@@ -135,15 +135,16 @@ public class InterConstantPropagation extends
     protected CPFact transferReturnEdge(ReturnEdge<Stmt> edge, CPFact returnOut) {
         // only pass return value
         CPFact returnValues = new CPFact();
-        if (edge.getCallSite() instanceof Invoke invoke &&
-                invoke.getDef().isPresent() &&
-                invoke.getDef().get() instanceof Var def) {
-            Set<Var> returnVars = new HashSet<>(edge.getReturnVars());
-            returnValues.update(def,
-                    returnVars.size() == 1
-                            ? returnOut.get(returnVars.iterator().next())
-                            : Value.getNAC()
-            );
+        if (edge.getCallSite() instanceof Invoke invoke) {
+            Value returnValue = null;
+            for (Var v : edge.getReturnVars()) {
+                returnValue = (returnValue == null)
+                        ? returnOut.get(v)
+                        : cp.meetValue(returnValue, returnOut.get(v));
+            }
+            if (returnValue != null && invoke.getLValue() != null) {
+                returnValues.update(invoke.getLValue(), returnValue);
+            }
         }
         return returnValues;
     }

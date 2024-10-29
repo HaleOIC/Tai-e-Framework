@@ -83,12 +83,8 @@ class CHABuilder implements CGBuilder<Invoke, JMethod> {
                 JMethod staticMethod = declaringClass.getDeclaredMethod(methodSignature);
                 methods.add(staticMethod);
             }
-            case SPECIAL -> {
-                methods.add(dispatch(declaringClass, methodSignature));
-            }
-            case VIRTUAL, INTERFACE -> {
-                addDispatchMethodsRecursively(declaringClass, methodSignature, methods);
-            }
+            case SPECIAL -> methods.add(dispatch(declaringClass, methodSignature));
+            case VIRTUAL, INTERFACE -> addDispatchMethodsRecursively(declaringClass, methodSignature, methods);
         }
         return methods;
     }

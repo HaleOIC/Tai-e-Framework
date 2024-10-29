@@ -76,9 +76,8 @@ class InterSolver<Method, Node, Fact> {
         while (!workList.isEmpty()) {
             Node node = workList.remove();
             Fact tempIn = analysis.newInitialFact();
-            icfg.getInEdgesOf(node).forEach(edge -> {
-                analysis.meetInto(analysis.transferEdge(edge, result.getOutFact(edge.getSource())), tempIn);
-            });
+            icfg.getInEdgesOf(node).forEach(edge ->
+                    analysis.meetInto(analysis.transferEdge(edge, result.getOutFact(edge.getSource())), tempIn));
             if (analysis.transferNode(node, tempIn, result.getOutFact(node))) {
                 workList.addAll(icfg.getSuccsOf(node));
             }
