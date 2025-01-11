@@ -1,8 +1,0 @@
-digraph G {
-  node [shape=box,color=".3 .2 1.0",style=filled,];
-  "0" [label="Entry<UnreachableSwitchBranch: void use(int)>",];
-  "1" [label="0: return",];
-  "2" [label="Exit<UnreachableSwitchBranch: void use(int)>",];
-  "0" -> "1" [label="ENTRY",];
-  "1" -> "2" [label="RETURN",];
-}
