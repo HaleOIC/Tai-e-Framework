@@ -1,8 +1,0 @@
-digraph G {
-  node [color=".3 .2 1.0",style=filled,shape=box,];
-  "0" [label="<Fibonacci: int getFibonacci(int)>",];
-  "1" [label="<Fibonacci: void main(java.lang.String[])>",];
-  "0" -> "0" [label="[12@L10] temp$1 = invokestatic <Fibonacci: int getFibonacci(int)>(temp$0);",];
-  "0" -> "0" [label="[15@L10] temp$4 = invokestatic <Fibonacci: int getFibonacci(int)>(temp$3);",];
-  "1" -> "0" [label="[2@L5] temp$0 = invokestatic <Fibonacci: int getFibonacci(int)>(n);",];
-}
